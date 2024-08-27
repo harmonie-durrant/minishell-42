@@ -5,64 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 11:44:04 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:38:21 by rbryento         ###   ########.fr       */
+/*   Created: 2024/08/27 11:53:36 by rbryento          #+#    #+#             */
+/*   Updated: 2024/08/27 13:22:22 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_valid_variable_name(char *name)
+static int	export_with_args(char **args, t_minishell *mini_data, int i)
 {
-	int			i;
+	int		ret;
+	char	**str;
+	char	*tmp;
 
-	i = 0;
-	if (!ft_isalpha((unsigned char)name[0]))
+	i = 1;
+	while (args[i++])
 	{
-		write(STDERR_FILENO, "not a valid identifier\n", 24);
-		return (0);
-	}
-	while (i < ft_strlen(name))
-	{
-		if (!ft_isalnum(name[i]))
+		str = ft_split(args[i - 1], '=');
+		if (!str || !str[0])
 		{
 			write(STDERR_FILENO, "not a valid identifier\n", 24);
-			return (0);
+			free_2d(str);
+			return (1);
 		}
-		i++;
+		tmp = get_env(str[0], mini_data->env);
+		if (!str[1])
+			ret = ft_export(str[0], tmp, 0, mini_data);
+		else
+			ret = ft_export(str[0], str[1], 0, mini_data);
+		free(tmp);
+		free_2d(str);
+		if (ret == 1)
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
-int	should_set_variable(char *name, int overwrite, t_minishell *mini_data)
+int	export_builtin(t_minishell *mini_data, char **args)
 {
-	char	*var;
+	int		i;
 
-	var = get_env(name, mini_data->env);
-	return (var == NULL || overwrite);
-}
-
-void	replace_variable(char *name, char *new_var, t_minishell *mini_data)
-{
-	unset_env(name, mini_data);
-	add_env_var_to_list(new_var, mini_data);
-}
-
-int	ft_export(char *name, const char *value, int overwrite, t_minishell *mini_data)
-{
-	char	*new_var;
-
-	new_var = NULL;
-	if (!is_valid_variable_name(name))
-		return (1);
-	if (!should_set_variable(name, overwrite, mini_data))
+	i = 0;
+	if (!args[1])
+	{
+		while (mini_data->env[i])
+			ft_printf("declare -x %s\n", mini_data->env[i++]);
+		mini_data->exit_code = 0;
 		return (0);
-	if (value)
-		new_var = create_env(name, value);
-	else
-		new_var = create_env(name, "");
-	if (!new_var)
+	}
+	if (export_with_args(args, mini_data, i) == 1)
 		return (1);
-	replace_variable(name, new_var, mini_data);
+	mini_data->exit_code = 0;
 	return (0);
 }

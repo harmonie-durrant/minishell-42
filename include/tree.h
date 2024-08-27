@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:53:37 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 13:32:56 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:44:16 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int		get_seperator_index(char *input);
 int		execute_tree(t_minishell *ms_data, t_tree *branch);
 int		execute_command(t_minishell *ms_data, t_tree *branch);
 
-
 t_tree	*process_tree(char *input);
 
 int		execute_piped_commands(t_minishell *ms_data, t_tree *branch);
 void	exec_left_pipe(t_minishell *ms_data, t_tree *branch, int *pipe_fd);
 void	exec_right_pipe(t_minishell *mini_data, t_tree *branch, int *pipe_fd);
-void	leftright_pid(t_minishell *ms_data, t_tree *branch, t_pipepids *pipepids);
+void	leftright_pid(t_minishell *ms_data, t_tree *branch,
+			t_pipepids *pipepids);
 
 #endif

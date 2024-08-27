@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:31:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:42:33 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:24:43 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 # include <readline/readline.h>
 # include "tree.h"
 # include "builtins.h"
+
+typedef struct s_v2d
+{
+	int	x;
+	int	y;
+}	t_v2d;
 
 // t_minishell
 t_minishell	*init_minishell(char const *envp[]);
@@ -53,5 +59,6 @@ char		*get_env(char *label, char **env);
 char		*ft_strndup(const char *s, size_t n);
 char		*remove_double_quotes(const char *str);
 void		free_2d(char **arr);
+void		add_arg(char *data, int *i, char **args, t_v2d *ignore);
 
 #endif

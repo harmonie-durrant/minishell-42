@@ -6,70 +6,55 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:47:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/03/23 21:09:05 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:07:15 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(const char *str, char c)
+static size_t	ft_countword(char const *s, char c)
 {
-	int	i;
-	int	cond;
+	size_t	count;
 
-	i = 0;
-	cond = 0;
-	while (*str)
+	if (!*s)
+		return (0);
+	count = 0;
+	while (*s)
 	{
-		if (*str != c && cond == 0)
-		{
-			cond = 1;
-			i++;
-		}
-		else if (*str == c)
-			cond = 0;
-		str++;
+		while (*s == c)
+			s++;
+		if (*s)
+			count++;
+		while (*s != c && *s)
+			s++;
 	}
-	return (i);
-}
-
-static char	*word_dup(const char *str, int start, int finish)
-{
-	char	*new_word;
-	int		i;
-
-	i = 0;
-	new_word = malloc((finish - start + 1) * sizeof(char));
-	while (start < finish)
-		new_word[i++] = str[start++];
-	new_word[i] = '\0';
-	return (new_word);
+	return (count);
 }
 
 char	**ft_split(char const *s, char c)
 {
+	char	**lst;
+	size_t	word_len;
 	int		i;
-	int		j;
-	int		k;
-	char	**split;
 
-	k = -1;
-	i = 0;
-	j = 0;
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!s || !split)
+	lst = (char **)malloc((ft_countword(s, c) + 1) * sizeof(char *));
+	if (!s || !lst)
 		return (0);
-	while (i <= ft_strlen(s))
+	i = 0;
+	while (*s)
 	{
-		if ((s[i] == c || i == ft_strlen(s)) && k >= 0)
+		while (*s == c && *s)
+			s++;
+		if (*s)
 		{
-			split[j++] = word_dup(s, k, i);
-			k = -1;
+			if (!ft_strchr(s, c))
+				word_len = ft_strlen(s);
+			else
+				word_len = ft_strchr(s, c) - s;
+			lst[i++] = ft_substr(s, 0, word_len);
+			s += word_len;
 		}
-		else if (s[i] != c && k < 0)
-			k = i;
-		i++;
 	}
-	split[j] = 0;
-	return (split);
+	lst[i] = NULL;
+	return (lst);
 }

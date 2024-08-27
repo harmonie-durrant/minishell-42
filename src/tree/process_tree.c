@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:07:01 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 12:45:13 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:25:45 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static t_tree	*fill_values(char *input, size_t isep, int *p_l, int *p_r)
 		root->left = process_tree(datal);
 		datar = ft_strndup(input + isep + *p_r + 1, i_end - isep - 1);
 		root->right = process_tree(datar);
+		free(datal);
+		free(datar);
 	}
 	return (root);
 }
@@ -76,7 +78,7 @@ t_tree	*process_tree(char *input)
 		return (NULL);
 	i_sep_int = get_seperator_index(input);
 	if (i_sep_int < 0)
-		return (create_node(input));
+		return (create_node(ft_strdup(input)));
 	i_sep = (size_t)i_sep_int;
 	set_padding(input, i_sep, &p_l, &p_r);
 	root = fill_values(input, i_sep, &p_l, &p_r);

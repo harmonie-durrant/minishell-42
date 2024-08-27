@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:08 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 13:26:57 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:21:46 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,39 @@ char	*merge_string(char *s1, char *s2, char *s3)
 	return (result);
 }
 
-char	*find_full_path(char **args, char **env)
+char	*find_full_path_2(char **paths, char **args)
 {
-	char	*path_var;
-	char	*full_path;
-	char	**paths;
 	int		i;
+	char	*full_path;
 
 	i = 0;
-	path_var = get_env("PATH", env);
-	if (!path_var)
-		return (NULL);
-	paths = ft_split(path_var, ':');
-	while (paths[i])
+	while (paths[i++])
 	{
-		full_path = merge_string(paths[i], "/", args[0]);
+		full_path = merge_string(paths[i - 1], "/", args[0]);
 		if (!full_path)
 			ft_printf("%s: Command not found.\n", args[0]);
 		if (access(full_path, F_OK | X_OK) == 0)
 		{
-			free(paths);
+			free_2d(paths);
 			return (full_path);
 		}
 		free(full_path);
-		i++;
 	}
-	free(paths);
+	free_2d(paths);
 	return (NULL);
+}
+
+char	*find_full_path(char **args, char **env)
+{
+	char	*path_var;
+	char	**paths;
+
+	path_var = get_env("PATH", env);
+	if (!path_var)
+		return (NULL);
+	paths = ft_split(path_var, ':');
+	free(path_var);
+	return (find_full_path_2(paths, args));
 }
 
 int	find_command(t_minishell *mini_data, char **args)

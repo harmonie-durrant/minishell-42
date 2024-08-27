@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:06:49 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 14:17:43 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:35:09 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	execute_command(t_minishell *ms_data, t_tree *branch)
 	if (!args)
 		return (1);
 	res = handle_builtins(ms_data, args);
-	if (get_redirection(ms_data, args) == 2)
-		res = find_command(ms_data, args);
+	if (res == -1)
+		if (get_redirection(ms_data, args) == 2)
+			res = find_command(ms_data, args);
 	free_2d(args);
 	return (res);
 }

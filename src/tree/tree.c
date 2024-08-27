@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:06:56 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 12:41:22 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 10:52:08 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,11 @@ void	print_tree(t_tree *root, int indent)
 
 void	destroy_tree(t_tree *tree)
 {
-	if (tree == NULL)
+	if (!tree)
 		return ;
 	destroy_tree(tree->left);
 	destroy_tree(tree->right);
+	free(tree->data);
 	free(tree);
+	tree = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:21:11 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 16:40:25 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:51:13 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,10 @@ void	free_minishell(t_minishell *mini_data)
 		return ;
 	if (mini_data->history)
 		ft_lstclear(&mini_data->history, &ft_lstfree);
-	if (mini_data->tree)
-		destroy_tree(mini_data->tree);
 	if (mini_data->env)
 		free_2d(mini_data->env);
 	free(mini_data);
+	mini_data = NULL;
 }
 
 t_minishell	*init_minishell(char const *envp[])

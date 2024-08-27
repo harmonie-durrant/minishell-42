@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:37:39 by rbryento          #+#    #+#             */
-/*   Updated: 2024/07/08 11:54:59 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 10:34:31 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,22 @@
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*tmp;
+	t_list	*item;
 
-	if (*lst)
+	if (!lst || !del)
+		return ;
+	item = *lst;
+	if (item)
 	{
-		while (*lst)
+		while (item)
 		{
-			tmp = (*lst)->next;
-			del((*lst)->content);
+			tmp = item->next;
+			del(item->content);
 			free(*lst);
-			*lst = tmp;
+			item = tmp;
 		}
-		free(*lst);
-		*lst = NULL;
+		if (item)
+			free(item);
+		item = NULL;
 	}
 }

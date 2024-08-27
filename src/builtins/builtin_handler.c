@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:39:21 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:27:14 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:37:11 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ int	exit_builtin(t_minishell *mini_data, char **args)
 	}
 	ft_printf("exit\n");
 	if (args[1] && return_val == 1)
-	{
 		mini_data->exit_code = ft_atoi(args[1]);
-		free_2d(args);
+	free_2d(args);
+	if (return_val == 1)
 		mini_exit(mini_data);
-	}
 	return (0);
 }
 

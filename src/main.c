@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:49:31 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:56:52 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:50:23 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	minishell(t_minishell *mini_data)
 	if (!input)
 	{
 		ft_printf("exit\n");
-		return (0);
+		mini_exit(mini_data);
 	}
 	if (input[0] == '\0')
 	{
@@ -41,7 +41,8 @@ static int	minishell(t_minishell *mini_data)
 		execute_tree(mini_data, mini_data->tree);
 		destroy_tree(mini_data->tree);
 	}
-	free(input);
+	if (input)
+		free(input);
 	return (minishell(mini_data));
 }
 
@@ -65,7 +66,8 @@ void	sig_handler(int signo)
 int	main(int argc, char const *argv[], char const *envp[])
 {
 	t_minishell	*mini_data;
-	int 		ret;
+	int			ret;
+
 	(void)argv;
 	if (argc > 1)
 	{

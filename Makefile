@@ -6,7 +6,7 @@
 #    By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/08 08:42:10 by rbryento          #+#    #+#              #
-#    Updated: 2024/08/25 15:42:07 by rbryento         ###   ########.fr        #
+#    Updated: 2024/08/27 13:32:07 by rbryento         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC	=	main.c						\
 		create_child.c				\
 		env.c						\
 		get_args.c					\
+		get_args_ext.c				\
 		remove_double_quotes.c		\
 		tree/process_tree.c			\
 		tree/tree.c					\
@@ -27,11 +28,12 @@ SRC	=	main.c						\
 		tree/get_info.c				\
 		builtins/builtin_handler.c	\
 		builtins/export.c			\
+		builtins/export_utils.c		\
 		builtins/unset_env.c		\
 		builtins/builtins.c			\
 		builtins/cd_utils.c			\
 		builtins/create_env.c		\
-		command/get_sign_command.c		\
+		command/get_sign_command.c	\
 
 NAME	=	minishell
 

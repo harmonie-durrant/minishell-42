@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 09:15:41 by rbryento          #+#    #+#             */
-/*   Updated: 2024/07/01 10:47:08 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:24:18 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,62 +36,25 @@ static int	get_nargs(char *data)
 	return (n);
 }
 
-static void	add_arg(char *data, int *i, char **args, int *ignore, int *ignore_alt)
-{
-	int	j;
-	int n;
-
-	j = 0;
-	n = 0;
-	while (args[n])
-		n++;
-	while (data[*i + j])
-	{
-		if (data[*i + j] == '\'' && *ignore == 0)
-			*ignore_alt = !*ignore_alt;
-		if (data[*i + j] == '"' && *ignore_alt == 0)
-			*ignore = !*ignore;
-		if (data[*i + j] == ' ' && *ignore == 0 && *ignore_alt == 0)
-			break ;
-		j++;
-	}
-	args[n] = calloc(j + 1, sizeof(char));
-	j = 0;
-	while (data[*i])
-	{
-		if (data[*i] == '\'' && *ignore == 0)
-			*ignore_alt = !*ignore_alt;
-		if (data[*i] == '"' && *ignore_alt == 0)
-			*ignore = !*ignore;
-		if (data[*i] == ' ' && *ignore == 0 && *ignore_alt == 0)
-			break ;
-		args[n][j] = data[*i];
-		j++;
-		*i = *i + 1;
-	}
-	args[n][j] = '\0';
-}
-
 static void	make_args(char **args, char *data)
 {
-	int	i;
-	int	ignore;
-	int	ignore_alt;
+	int		i;
+	t_v2d	ignore;
 
 	i = 0;
-	ignore = 0;
-	ignore_alt = 0;
+	ignore.x = 0;
+	ignore.y = 0;
 	while (data[i])
 	{
-		if (ignore == 0 && ignore_alt == 0 && data[i] != ' ')
+		if (ignore.x == 0 && ignore.y == 0 && data[i] != ' ')
 		{
-			add_arg(data, &i, args, &ignore, &ignore_alt);
+			add_arg(data, &i, args, &ignore);
 			continue ;
 		}
-		if (data[i] == '\'' && ignore == 0)
-			ignore_alt = !ignore_alt;
-		if (data[i] == '"' && ignore_alt == 0)
-			ignore = !ignore;
+		if (data[i] == '\'' && ignore.x == 0)
+			ignore.y = !ignore.y;
+		if (data[i] == '"' && ignore.y == 0)
+			ignore.x = !ignore.x;
 		i++;
 	}
 }

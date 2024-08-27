@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:33:51 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:43:14 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:44:31 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	change_to_directory(char *directory, t_minishell *ms_data);
 int	save_previous_directory(t_minishell *ms_data);
 int	change_to_previous(t_minishell *ms_data);
 
-int	ft_export(char *name, const char *value, int overwrite, t_minishell *mini_data);
+int	ft_export(char *name, const char *value, int overwrite,
+		t_minishell *mini_data);
 
 #endif

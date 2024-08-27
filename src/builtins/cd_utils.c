@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:32:37 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:48:27 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:02:51 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,40 @@ int	change_to_previous(t_minishell *mini_data)
 	if (!ret)
 	{
 		ft_printf("%s: Not a directory.\n", previous_dir);
+		free(previous_dir);
 		return (2);
 	}
 	ret = chdir(previous_dir);
 	if (ret != 0)
 	{
 		ft_printf("%s\n", previous_dir);
+		free(previous_dir);
 		return (1);
 	}
 	ft_printf("%s\n", previous_dir);
 	ret = save_previous_directory(mini_data);
+	free(previous_dir);
 	return (ret);
 }
 
 int	save_previous_directory(t_minishell *mini_data)
 {
 	char	*previous_dir;
+	char	*pwd;
+	int		ret;
 
+	ret = 0;
 	previous_dir = getcwd(NULL, 0);
 	if (!previous_dir)
 		return (1);
-	if (setenv("OLDPWD", get_env("PWD", mini_data->env), 1) != 0)
-	{
-		free(previous_dir);
-		return (1);
-	}
-	if (setenv("PWD", previous_dir, 1) != 0)
-	{
-		free(previous_dir);
-		return (1);
-	}
+	pwd = get_env("PWD", mini_data->env);
+	if (setenv("OLDPWD", pwd, 1) != 0)
+		ret = 1;
+	if (setenv("PWD", previous_dir, 1) != 0 && ret == 0)
+		ret = 1;
 	free(previous_dir);
-	return (0);
+	free(pwd);
+	return (ret);
 }
 
 int	change_to_home(t_minishell *mini_data)
@@ -79,26 +81,32 @@ int	change_to_home(t_minishell *mini_data)
 		return (1);
 	if (!is_directory(home))
 	{
-		write(STDERR_FILENO, "No such file or directory\n", 27);
+		ft_putstr_fd("No such file or directory\n", STDERR_FILENO);
+		free(home);
 		return (1);
 	}
 	ret = chdir(home);
 	if (ret != 0)
 	{
-		write(STDERR_FILENO, "No such file or directory\n", 27);
+		ft_putstr_fd("No such file or directory\n", STDERR_FILENO);
+		free(home);
 		return (1);
 	}
 	ret = save_previous_directory(mini_data);
+	free(home);
 	return (ret);
 }
 
 int	change_to_directory(char *directory, t_minishell *mini_data)
 {
-	int	ret;
+	int		ret;
+	char	*tmp;
 
 	if (directory[0] == '~')
 	{
-		directory = ft_strjoin(get_env("HOME", mini_data->env), directory + 1);
+		tmp = get_env("HOME", mini_data->env);
+		directory = ft_strjoin(tmp, directory + 1);
+		free(tmp);
 		if (!directory)
 			return (1);
 	}
