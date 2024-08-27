@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:31:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 13:24:43 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:53:42 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ char		*ft_strndup(const char *s, size_t n);
 char		*remove_double_quotes(const char *str);
 void		free_2d(char **arr);
 void		add_arg(char *data, int *i, char **args, t_v2d *ignore);
+char		*format_dollar(char *str, t_minishell *mini_data);
 
 #endif

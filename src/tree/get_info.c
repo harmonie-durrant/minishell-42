@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:07:05 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 11:27:38 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:57:51 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	check_seperator(char *input, size_t j)
 	int	ignore_alt;
 
 	ignore = 0;
+	ignore_alt = 0;
 	i = 0;
 	while (input[i] != '\0')
 	{
@@ -26,7 +27,7 @@ int	check_seperator(char *input, size_t j)
 			ignore = !ignore;
 		if (input[i] == '\'' && ignore == 0)
 			ignore_alt = !ignore_alt;
-		if (input[i] == P_CHARS[j] && ignore == 0 && ignore_alt == 0)
+		if (input[i] == P_CHARS[j] && (ignore == 0 && ignore_alt == 0))
 			return (i);
 		i++;
 	}

@@ -6,54 +6,33 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:51:37 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 11:53:58 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:48:49 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo_builtin(t_minishell *mini_data, char **args)
-{
-	int		i;
-	char	*tmp;
-	int		flag_n;
-
-	flag_n = 0;
-	i = 1;
-	if (args[1] && !ft_strncmp(args[1], "-n", 2))
-	{
-		flag_n = 1;
-		i++;
-	}
-	while (args[i])
-	{
-		tmp = remove_double_quotes(args[i]);
-		ft_printf("%s", tmp);
-		free(tmp);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
-	}
-	if (!flag_n)
-		ft_printf("\n");
-	mini_data->exit_code = 0;
-	return (0);
-}
-
 int	cd_builtin(t_minishell *mini_data, char **args)
 {
 	int		ret;
 	char	*pwd;
+	int		i;
+	char	*arg_formated;
 
 	ret = 0;
-	if (args[1] == NULL)
-		ret = change_to_home(mini_data);
-	else if (args[2])
+	i = 0;
+	while (args[i])
+		i++;
+	if (i > 2)
 	{
-		write(STDERR_FILENO, "too many arguments\n", 20);
+		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
+		mini_data->exit_code = 1;
 		return (1);
 	}
-	else if (!ft_strncmp(args[1], "-", 1))
+	if (args[1] == NULL)
+		ret = change_to_home(mini_data);
+	arg_formated = format_dollar(args[1], mini_data);
+	if (!ft_strncmp(arg_formated, "-", 1))
 	{
 		pwd = get_env("PWD", mini_data->env);
 		if (pwd != NULL)
@@ -63,7 +42,8 @@ int	cd_builtin(t_minishell *mini_data, char **args)
 		free(pwd);
 	}
 	else
-		ret = change_to_directory(args[1], mini_data);
+		ret = change_to_directory(arg_formated, mini_data);
+	free(arg_formated);
 	mini_data->exit_code = ret;
 	return (ret);
 }

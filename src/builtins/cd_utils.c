@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:32:37 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 11:02:51 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:52:07 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ int	change_to_directory(char *directory, t_minishell *mini_data)
 	ret = is_directory(directory);
 	if (!ret)
 	{
-		write(STDERR_FILENO, "No such file or directory\n", 27);
+		ft_putstr_fd("cd: No such file or directory\n", STDERR_FILENO);
 		return (1);
 	}
 	ret = chdir(directory);
 	if (ret != 0)
 	{
-		write(STDERR_FILENO, "No such file or directory\n", 27);
+		ft_putstr_fd("cd: No such file or directory\n", STDERR_FILENO);
 		return (1);
 	}
 	ret = save_previous_directory(mini_data);

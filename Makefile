@@ -6,7 +6,7 @@
 #    By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/08 08:42:10 by rbryento          #+#    #+#              #
-#    Updated: 2024/08/27 13:32:07 by rbryento         ###   ########.fr        #
+#    Updated: 2024/08/27 16:38:42 by rbryento         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC	=	main.c						\
 		builtins/builtin_handler.c	\
 		builtins/export.c			\
 		builtins/export_utils.c		\
+		builtins/echo.c				\
 		builtins/unset_env.c		\
 		builtins/builtins.c			\
 		builtins/cd_utils.c			\
