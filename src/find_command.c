@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:08 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 11:21:46 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:22:04 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	find_command(t_minishell *mini_data, char **args)
 	}
 	status = local_command(mini_data, args);
 	if (status == 127)
-		printf("%s: Command not found.\n", args[0]);
+	{
+		ft_putstr_fd(args[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	}
 	mini_data->exit_code = status;
 	return (status);
 }
