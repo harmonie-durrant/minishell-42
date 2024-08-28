@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:55:05 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 13:24:27 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:30:39 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ int	create_child(t_minishell *mini_data, char *full_path, char **args)
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		execve(full_path, args, mini_data->env);
 		is_executable(args);
-		exit(EXIT_FAILURE);
+		execve(full_path, args, mini_data->env);
 	}
 	else if (child_pid < 0)
 	{
 		ft_printf("Error: fork failed\n");
 		return (127);
 	}
-	else
-		waitpid(child_pid, &status, WUNTRACED);
+	waitpid(child_pid, &status, 0);
 	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (0);
+		mini_data->exit_code = WEXITSTATUS(status);
+	else
+		ft_putstr_fd("minishell: child exited abnormally\n", 2);
+	return (mini_data->exit_code);
 }

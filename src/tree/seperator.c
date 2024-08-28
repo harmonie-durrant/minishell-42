@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:06:49 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 13:35:09 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:48:03 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int	execute_piped_commands(t_minishell *ms_data, t_tree *branch)
 	close(pipe_fd[1]);
 	waitpid(pids[0], &status, 0);
 	waitpid(pids[1], &status, 0);
-	return (0);
+	if (WIFEXITED(status))
+		ms_data->exit_code = WEXITSTATUS(status);
+	return (ms_data->exit_code);
 }
 
 int	execute_tree(t_minishell *ms_data, t_tree *branch)
