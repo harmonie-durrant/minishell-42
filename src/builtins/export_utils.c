@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:44:04 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 11:46:10 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:41:36 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ int	should_set_variable(char *name, int overwrite, t_minishell *mini_data)
 	return (res);
 }
 
-void	replace_variable(char *name, char *new_var, t_minishell *mini_data)
-{
-	unset_env(name, mini_data);
-	add_env_var_to_list(new_var, mini_data);
-}
-
 int	ft_export(char *name, const char *value, int overwrite,
 		t_minishell *mini_data)
 {
@@ -67,6 +61,6 @@ int	ft_export(char *name, const char *value, int overwrite,
 		new_var = create_env(name, "");
 	if (!new_var)
 		return (1);
-	replace_variable(name, new_var, mini_data);
+	update_env(name, new_var, mini_data->env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:32:37 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 14:52:07 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:29:25 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	save_previous_directory(t_minishell *mini_data)
 	if (!previous_dir)
 		return (1);
 	pwd = get_env("PWD", mini_data->env);
-	if (setenv("OLDPWD", pwd, 1) != 0)
+	if (set_env("OLDPWD", pwd, mini_data->env) != 0)
 		ret = 1;
-	if (setenv("PWD", previous_dir, 1) != 0 && ret == 0)
+	if (set_env("PWD", previous_dir, mini_data->env) != 0 && ret == 0)
 		ret = 1;
 	free(previous_dir);
 	free(pwd);
@@ -78,7 +78,7 @@ int	change_to_home(t_minishell *mini_data)
 
 	home = get_env("HOME", mini_data->env);
 	if (!home)
-		return (1);
+		return (2);
 	if (!is_directory(home))
 	{
 		ft_putstr_fd("No such file or directory\n", STDERR_FILENO);

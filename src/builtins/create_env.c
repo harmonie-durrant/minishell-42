@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:50:51 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/25 15:35:06 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:40:00 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,4 @@ char	*create_env(const char *name, const char *value)
 	}
 	new_var[i + j] = '\0';
 	return (new_var);
-}
-
-void	add_env_var_to_list(char *new_var, t_minishell *ms_data)
-{
-	int		i;
-	char	**new_env;
-
-	i = 0;
-	while (ms_data->env[i])
-		i++;
-	new_env = calloc(i + 2, sizeof(char *));
-	i = 0;
-	while (ms_data->env[i])
-	{
-		new_env[i] = ms_data->env[i];
-		i++;
-	}
-	new_env[i] = new_var;
-	new_env[i + 1] = NULL;
-	free_2d(ms_data->env);
-	ms_data->env = new_env;
 }

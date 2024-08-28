@@ -6,7 +6,7 @@
 #    By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/08 08:42:10 by rbryento          #+#    #+#              #
-#    Updated: 2024/08/27 16:38:42 by rbryento         ###   ########.fr        #
+#    Updated: 2024/08/28 09:22:38 by rbryento         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC	=	main.c						\
 		find_command.c				\
 		create_child.c				\
 		env.c						\
+		set_env.c					\
 		get_args.c					\
 		get_args_ext.c				\
 		remove_double_quotes.c		\
@@ -30,6 +31,8 @@ SRC	=	main.c						\
 		builtins/export.c			\
 		builtins/export_utils.c		\
 		builtins/echo.c				\
+		builtins/exit.c				\
+		builtins/cd.c				\
 		builtins/unset_env.c		\
 		builtins/builtins.c			\
 		builtins/cd_utils.c			\

@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:31:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 14:53:42 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:42:05 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ int			get_redirection(t_minishell *mini_data, char **args);
 char		*get_env(char *label, char **env);
 int			get_big(int a, int b);
 char		*create_env(const char *name, const char *value);
-void		add_env_var_to_list(char *new_var, t_minishell *mini_data);
+int			add_env_var_to_list(char *new_env_var, char **env);
 int			unset_env(const char *name, t_minishell *ms_data);
 char		*get_env(char *label, char **env);
+int			set_env(char *label, char *value, char **env);
+int			ft_strwordlen(char *str);
+int			update_env(char *label, char *value, char **env);
 
 // misc
 char		*ft_strndup(const char *s, size_t n);
