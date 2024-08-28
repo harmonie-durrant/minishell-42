@@ -6,15 +6,15 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:21:05 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/28 09:40:02 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:19:55 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int update_env(char *label, char *value, char **env)
+int	update_env(char *label, char *value, char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
@@ -58,7 +58,7 @@ int	add_env_var_to_list(char *new_env_var, char **env)
 	return (0);
 }
 
-int set_env(char *label, char *value, char **env)
+int	set_env(char *label, char *value, char **env)
 {
 	int	ret;
 

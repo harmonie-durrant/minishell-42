@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:31:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/28 09:42:05 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:22:22 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef struct s_v2d
 	int	x;
 	int	y;
 }	t_v2d;
+
+typedef struct s_v4d
+{
+	t_v2d	*ij;
+	t_v2d	*ignore;
+}	t_v4d;
 
 // t_minishell
 t_minishell	*init_minishell(char const *envp[]);
@@ -58,9 +64,18 @@ int			set_env(char *label, char *value, char **env);
 int			ft_strwordlen(char *str);
 int			update_env(char *label, char *value, char **env);
 
+// format_dollar
+int			check_exit_code(char *str, t_v2d *ij, char **formatted,
+				t_minishell *mini_data);
+int			check_no_dollar(char *str, t_v2d *ij, char **formatted);
+int			check_dollar(char *str, t_v4d *data, char **formatted,
+				t_minishell *mini_data);
+char		*add_str(char *str, char *add);
+char		*add_char(char *str, char c);
+
 // misc
 char		*ft_strndup(const char *s, size_t n);
-char		*remove_double_quotes(const char *str);
+char		*remove_double_quotes(char *str);
 void		free_2d(char **arr);
 void		add_arg(char *data, int *i, char **args, t_v2d *ignore);
 char		*format_dollar(char *str, t_minishell *mini_data);

@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 09:15:41 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 13:24:18 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:50:12 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	**get_args(char *data)
 {
 	char	**args;
 	int		nargs;
+	int		i;
 
 	if (!data)
 		return (NULL);
@@ -70,5 +71,11 @@ char	**get_args(char *data)
 	args = calloc(nargs + 1, sizeof(char *));
 	make_args(args, data);
 	args[nargs] = NULL;
+	i = 0;
+	while (args[i])
+	{
+		args[i] = remove_double_quotes(args[i]);
+		i++;
+	}
 	return (args);
 }
