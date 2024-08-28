@@ -6,7 +6,7 @@
 #    By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/08 08:42:10 by rbryento          #+#    #+#              #
-#    Updated: 2024/08/28 09:22:38 by rbryento         ###   ########.fr        #
+#    Updated: 2024/08/28 09:47:07 by rbryento         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC	=	main.c						\
 		ft_ext.c					\
 		local_command.c				\
 		find_command.c				\
+		format_dollar.c				\
 		create_child.c				\
 		env.c						\
 		set_env.c					\
