@@ -6,11 +6,25 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:53:36 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 13:22:22 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:54:40 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	export_arg_check(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg && arg[i])
+	{
+		if (!ft_isalpha(arg[i]) && arg[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static int	export_with_args(char **args, t_minishell *mini_data, int i)
 {
@@ -22,9 +36,10 @@ static int	export_with_args(char **args, t_minishell *mini_data, int i)
 	while (args[i++])
 	{
 		str = ft_split(args[i - 1], '=');
-		if (!str || !str[0])
+		if (!str || !str[0] || export_arg_check(str[0]) == 1)
 		{
-			write(STDERR_FILENO, "not a valid identifier\n", 24);
+			ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
+			mini_data->exit_code = 1;
 			free_2d(str);
 			return (1);
 		}
