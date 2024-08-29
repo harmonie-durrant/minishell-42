@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:08 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/28 21:22:04 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:41:36 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*find_full_path_2(char **paths, char **args)
 	{
 		full_path = merge_string(paths[i - 1], "/", args[0]);
 		if (!full_path)
-			ft_printf("%s: Command not found.\n", args[0]);
+			return (NULL);
 		if (access(full_path, F_OK | X_OK) == 0)
 		{
 			free_2d(paths);
@@ -74,24 +74,25 @@ char	*find_full_path(char **args, char **env)
 
 int	find_command(t_minishell *mini_data, char **args)
 {
-	int		status;
+	int		file_check;
 	char	*full_path;
 
-	status = 0;
 	full_path = find_full_path(args, mini_data->env);
-	if (full_path != NULL)
+	if (!full_path)
 	{
-		status = create_child(mini_data, full_path, args);
+		file_check = check_file(mini_data, args[0], args[0]);
+		if (file_check != 0)
+			return (mini_data->exit_code);
+		mini_data->exit_code = local_command(mini_data, args);
+		return (mini_data->exit_code);
+	}
+	file_check = check_file(mini_data, full_path, args[0]);
+	if (file_check != 0)
+	{
 		free(full_path);
-		mini_data->exit_code = status;
-		return (status);
+		return (mini_data->exit_code);
 	}
-	status = local_command(mini_data, args);
-	if (status == 127)
-	{
-		ft_putstr_fd(args[0], STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	}
-	mini_data->exit_code = status;
-	return (status);
+	mini_data->exit_code = create_child(mini_data, full_path, args);
+	free(full_path);
+	return (mini_data->exit_code);
 }

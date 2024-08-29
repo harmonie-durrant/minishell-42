@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:31:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/28 11:22:22 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:14:10 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int			find_command(t_minishell *mini_data, char **args);
 int			create_child(t_minishell *mini_data, char *full_path, char **args);
 char		*merge_string(char *s1, char *s2, char *s3);
 char		*find_full_path(char **args, char **env);
-int			is_executable(char **args);
 int			local_command(t_minishell *mini_data, char **args);
 char		**get_args(char *data);
 int			get_redirection(t_minishell *mini_data, char **args);
@@ -79,5 +78,6 @@ char		*remove_double_quotes(char *str);
 void		free_2d(char **arr);
 void		add_arg(char *data, int *i, char **args, t_v2d *ignore);
 char		*format_dollar(char *str, t_minishell *mini_data);
+int			check_file(t_minishell *mini_data, char *file, char *first_arg);
 
 #endif
