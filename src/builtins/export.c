@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:53:36 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/29 14:54:40 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:17:27 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static int	export_arg_check(char *arg)
 	return (0);
 }
 
+static void	export_err(t_minishell *mini_data)
+{
+	ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
+	mini_data->exit_code = 1;
+}
+
 static int	export_with_args(char **args, t_minishell *mini_data, int i)
 {
 	int		ret;
@@ -38,8 +44,7 @@ static int	export_with_args(char **args, t_minishell *mini_data, int i)
 		str = ft_split(args[i - 1], '=');
 		if (!str || !str[0] || export_arg_check(str[0]) == 1)
 		{
-			ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
-			mini_data->exit_code = 1;
+			export_err(mini_data);
 			free_2d(str);
 			return (1);
 		}

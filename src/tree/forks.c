@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:10:33 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/28 16:50:15 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:17:51 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	exec_right_pipe(t_minishell *mini_data, t_tree *branch, int *pipe_fd)
 	close(pipe_fd[0]);
 	exit(execute_tree(mini_data, branch->right));
 }
-
 
 void	leftright_pid(t_minishell *mini_data, t_tree *branch,
 			t_pipepids *pipepids)

@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:58:09 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/27 11:48:39 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:38:54 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	get_redirection(t_minishell *mini_data, char **args)
 	(void)args;
 	while (args[i])
 	{
-		if (ft_strncmp(args[i], ">", get_big(1, ft_strlen(args[i]))) == 0)
-			return (2);//redirect_output(mini_data, args));
-		if (ft_strncmp(args[i], "<", get_big(1, ft_strlen(args[i]))) == 0)
-			return (2);//redirect_input(mini_data, args));
 		if (ft_strncmp(args[i], ">>", get_big(2, ft_strlen(args[i]))) == 0)
-			return (2);//redirect_double_output(mini_data, args));
+			return (redirect_double_output(mini_data, args));
 		if (ft_strncmp(args[i], "<<", get_big(2, ft_strlen(args[i]))) == 0)
-			return (2);//redirect_double_input(mini_data, args));
+			return (redirect_double_input(mini_data, args));
+		if (ft_strncmp(args[i], ">", get_big(1, ft_strlen(args[i]))) == 0)
+			return (redirect_output(mini_data, args));
+		if (ft_strncmp(args[i], "<", get_big(1, ft_strlen(args[i]))) == 0)
+			return (redirect_input(mini_data, args));
 		i++;
 	}
 	return (2);

@@ -6,7 +6,7 @@
 /*   By: rbryento <rbryento@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:31:13 by rbryento          #+#    #+#             */
-/*   Updated: 2024/08/29 13:14:10 by rbryento         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:23:32 by rbryento         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include "tree.h"
 # include "builtins.h"
+# include "redirection.h"
 
 typedef struct s_v2d
 {
